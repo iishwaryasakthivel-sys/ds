@@ -1,0 +1,134 @@
+import java.util.Scanner;
+
+class ListADT {
+
+    int[] list = new int[10];
+    int size = 0;
+
+    // Insert element
+    void insert(int value) {
+        if (size == list.length) {
+            System.out.println("List is Full");
+        } else {
+            list[size] = value;
+            size++;
+            System.out.println("Element inserted successfully");
+        }
+    }
+
+    // Delete element
+    void delete(int value) {
+
+        int pos = -1;
+
+        for (int i = 0; i < size; i++) {
+            if (list[i] == value) {
+                pos = i;
+                break;
+            }
+        }
+
+        if (pos == -1) {
+            System.out.println("Element not found");
+        } else {
+
+            for (int i = pos; i < size - 1; i++) {
+                list[i] = list[i + 1];
+            }
+
+            size--;
+            System.out.println("Element deleted successfully");
+        }
+    }
+
+    // Search element
+    void search(int value) {
+
+        for (int i = 0; i < size; i++) {
+
+            if (list[i] == value) {
+                System.out.println("Element found at position "
+                        + (i + 1));
+                return;
+            }
+        }
+
+        System.out.println("Element not found");
+    }
+
+    // Display list
+    void display() {
+
+        if (size == 0) {
+            System.out.println("List is empty");
+        } else {
+
+            System.out.println("List elements:");
+
+            for (int i = 0; i < size; i++) {
+                System.out.print(list[i] + " ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+public class ListADTArray {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        ListADT l = new ListADT();
+
+        int choice, value;
+
+        do {
+
+            System.out.println("\n--- LIST ADT ---");
+            System.out.println("1. Insert");
+            System.out.println("2. Delete");
+            System.out.println("3. Search");
+            System.out.println("4. Display");
+            System.out.println("5. Exit");
+
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter value: ");
+                    value = sc.nextInt();
+                    l.insert(value);
+                    break;
+
+                case 2:
+                    System.out.print("Enter value to delete: ");
+                    value = sc.nextInt();
+                    l.delete(value);
+                    break;
+
+                case 3:
+                    System.out.print("Enter value to search: ");
+                    value = sc.nextInt();
+                    l.search(value);
+                    break;
+
+                case 4:
+                    l.display();
+                    break;
+
+                case 5:
+                    System.out.println("Program terminated");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
