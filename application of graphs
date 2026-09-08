@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class Dijkstra {
+
+    static int minDistance(int[] distance, boolean[] visited, int n) {
+        int min = Integer.MAX_VALUE;
+        int index = -1;
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i] && distance[i] < min) {
+                min = distance[i];
+                index = i;
+            }
+        }
+
+        return index;
+    }
+
+    static void dijkstra(int[][] graph, int source, int n) {
+
+        int[] distance = new int[n];
+        boolean[] visited = new boolean[n];
+
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[source] = 0;
+
+        for (int count = 0; count < n - 1; count++) {
+
+            int u = minDistance(distance, visited, n);
+            visited[u] = true;
+
+            for (int v = 0; v < n; v++) {
+                if (!visited[v] && graph[u][v] != 0
+                        && distance[u] != Integer.MAX_VALUE
+                        && distance[u] + graph[u][v] < distance[v]) {
+
+                    distance[v] = distance[u] + graph[u][v];
+                }
+            }
+        }
+
+        System.out.println("Shortest distances from source vertex " + source + ":");
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Vertex " + i + " = " + distance[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        int[][] graph = {
+            {0, 4, 1, 0, 0},
+            {4, 0, 2, 5, 0},
+            {1, 2, 0, 8, 10},
+            {0, 5, 8, 0, 2},
+            {0, 0, 10, 2, 0}
+        };
+
+        int n = 5;
+
+        dijkstra(graph, 0, n);
+    }
+}
