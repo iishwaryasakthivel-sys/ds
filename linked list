@@ -1,0 +1,90 @@
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SinglyLinkedList {
+
+    Node head;
+
+    // Insert at beginning
+    void insert(int data) {
+
+        Node newNode = new Node(data);
+
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // Delete an element
+    void delete(int data) {
+
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        if (head.data == data) {
+            head = head.next;
+            return;
+        }
+
+        Node current = head;
+
+        while (current.next != null) {
+
+            if (current.next.data == data) {
+                current.next = current.next.next;
+                return;
+            }
+
+            current = current.next;
+        }
+
+        System.out.println("Element not found");
+    }
+
+    // Display elements
+    void display() {
+
+        Node current = head;
+
+        if (current == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        System.out.println("Singly Linked List:");
+
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+
+        System.out.println("NULL");
+    }
+}
+
+public class SinglyLinkedListDemo {
+
+    public static void main(String[] args) {
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.insert(10);
+        list.insert(20);
+        list.insert(30);
+
+        list.display();
+
+        list.delete(20);
+
+        System.out.println("After deletion:");
+        list.display();
+    }
+}
